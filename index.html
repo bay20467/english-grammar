@@ -619,13 +619,55 @@
   .memo-card.done .btn-reveal,
   .memo-card.revealed .btn-reveal { display: none; }
 
+  .level-selector {
+    display: flex;
+    gap: 0;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .level-btn {
+    padding: 7px 16px;
+    border: none;
+    border-right: 1.5px solid var(--border-strong);
+    background: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    transition: background 0.15s, color 0.15s;
+    line-height: 1.2;
+  }
+
+  .level-btn:last-child { border-right: none; }
+
+  .level-btn span {
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .level-btn.active {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .level-btn.active span { color: rgba(255,255,255,0.8); }
+  .level-btn:not(.active):hover { background: var(--bg); }
+
   .memo-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
   }
 
   .memo-score-pill {
@@ -791,6 +833,257 @@
   @media (max-width: 360px) {
     .memo-grid { grid-template-columns: 1fr; }
   }
+
+  /* ══════════════════════════════════════
+     ADJ ORDER
+  ══════════════════════════════════════ */
+
+  /* Mnemonic strip */
+  .osascomp-strip {
+    display: flex;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  .osc-cell {
+    flex: 1;
+    text-align: center;
+    padding: 10px 4px 8px;
+    border-right: 1px solid rgba(255,255,255,0.25);
+    min-width: 0;
+  }
+
+  .osc-cell:last-child { border-right: none; }
+
+  .osc-num {
+    font-size: 0.6rem;
+    font-weight: 700;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .osc-letter {
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: block;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .osc-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    display: block;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .osc-1 { background: #c0392b; }
+  .osc-2 { background: #d35400; }
+  .osc-3 { background: #d4ac0d; }
+  .osc-4 { background: #27ae60; }
+  .osc-5 { background: #2980b9; }
+  .osc-6 { background: #7d3c98; }
+  .osc-7 { background: #16a085; }
+  .osc-8 { background: #7f8c8d; }
+
+  .mnemonic-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+
+  .mnemonic-word {
+    flex: 1;
+    text-align: center;
+    font-size: 0.6rem;
+    color: var(--muted);
+    font-style: italic;
+    padding: 3px 2px 0;
+    border-top: 2px solid var(--border);
+    line-height: 1.3;
+  }
+
+  /* Sentence builder exercise */
+  .adj-exercise-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .adj-ex-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .adj-ex-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .adj-ex-score {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .adj-ex-score span { color: var(--primary); font-weight: 700; }
+
+  /* Sentence slots row */
+  .sentence-builder {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px dashed var(--border-strong);
+  }
+
+  .sb-article {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding-bottom: 6px;
+    white-space: nowrap;
+  }
+
+  .sb-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sb-drop {
+    width: 90px;
+    height: 40px;
+    border: 2px dashed var(--border-strong);
+    border-radius: 7px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 0.88rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--text);
+    cursor: default;
+  }
+
+  .sb-drop.over { border-color: var(--primary); background: var(--primary-light); }
+  .sb-drop.filled { border-style: solid; cursor: pointer; }
+  .sb-drop.correct { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+  .sb-drop.wrong-slot { animation: wrongFlash 0.45s ease; }
+
+  .sb-cat-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .sb-noun {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--text);
+  }
+
+  /* Chip pool */
+  .adj-pool-wrap {
+    margin-bottom: 20px;
+  }
+
+  .adj-pool-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .adj-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 44px;
+  }
+
+  .adj-chip {
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-strong);
+    background: #fff;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: grab;
+    user-select: none;
+    transition: box-shadow 0.15s, transform 0.12s, opacity 0.15s;
+    color: var(--text);
+    font-family: inherit;
+  }
+
+  .adj-chip:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .adj-chip.dragging { opacity: 0.35; cursor: grabbing; }
+  .adj-chip.used { display: none; }
+
+  /* Result sentence */
+  .result-sentence {
+    display: none;
+    background: var(--correct-bg);
+    border: 1px solid var(--correct-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 1.05rem;
+    color: var(--correct);
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .result-sentence.show { display: block; }
+
+  /* Nav buttons */
+  .adj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 580px) {
+    .osc-label { display: none; }
+    .osc-letter { font-size: 0.9rem; }
+    .sb-drop { width: 72px; }
+    .sentence-builder { gap: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -830,6 +1123,14 @@
         จำ Suffixes
       </button>
 
+      <div class="nav-section-label" style="margin-top:14px">Part 3 — Adj. Order</div>
+      <button class="nav-item" id="nav-adjorder" onclick="switchTab('adjorder')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 6h4M3 12h8M3 18h12M17 3l4 4-4 4M21 7H11"/>
+        </svg>
+        เรียงลำดับ Adj.
+      </button>
+
     </nav>
   </aside>
 
@@ -844,8 +1145,15 @@
           <p class="page-sub">กรอกตัวอักษรที่หายไปในแต่ละช่อง เมื่อถูกต้องครบกรอบจะเปลี่ยนเป็นสีเขียว</p>
         </div>
         <div class="memo-toolbar">
-          <div class="memo-score-pill" id="memoScore">ถูกแล้ว <span>0</span> / 24 คำ</div>
-          <button class="btn btn-ghost btn-sm" onclick="resetMemo()">ล้างคำตอบ</button>
+          <div class="level-selector">
+            <button class="level-btn active" id="lvl-1" onclick="setMemoLevel(1)">Level 1<span>ง่าย</span></button>
+            <button class="level-btn"        id="lvl-2" onclick="setMemoLevel(2)">Level 2<span>ปานกลาง</span></button>
+            <button class="level-btn"        id="lvl-3" onclick="setMemoLevel(3)">Level 3<span>ยาก</span></button>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="memo-score-pill" id="memoScore">ถูกแล้ว <span>0</span> / 24 คำ</div>
+            <button class="btn btn-ghost btn-sm" onclick="resetMemo()">ล้างคำตอบ</button>
+          </div>
         </div>
         <div class="memo-grid" id="memoGrid"></div>
       </div>
@@ -918,6 +1226,61 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: Adj Order ── -->
+    <div id="panel-adjorder" class="tab-panel">
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="page-title">ลำดับ Adjective — OSASCOMP</div>
+          <p class="page-sub">ลาก adjective ไปวางในช่องที่ถูกต้อง เพื่อสร้างประโยคให้ถูกลำดับ</p>
+        </div>
+
+        <!-- OSASCOMP Reference -->
+        <div class="osascomp-strip">
+          <div class="osc-cell osc-1"><span class="osc-num">1</span><span class="osc-letter">O</span><span class="osc-label">Opinion</span></div>
+          <div class="osc-cell osc-2"><span class="osc-num">2</span><span class="osc-letter">S</span><span class="osc-label">Size</span></div>
+          <div class="osc-cell osc-3"><span class="osc-num">3</span><span class="osc-letter">A</span><span class="osc-label">Age</span></div>
+          <div class="osc-cell osc-4"><span class="osc-num">4</span><span class="osc-letter">S</span><span class="osc-label">Shape</span></div>
+          <div class="osc-cell osc-5"><span class="osc-num">5</span><span class="osc-letter">C</span><span class="osc-label">Color</span></div>
+          <div class="osc-cell osc-6"><span class="osc-num">6</span><span class="osc-letter">O</span><span class="osc-label">Origin</span></div>
+          <div class="osc-cell osc-7"><span class="osc-num">7</span><span class="osc-letter">M</span><span class="osc-label">Material</span></div>
+          <div class="osc-cell osc-8"><span class="osc-num">8</span><span class="osc-letter">P</span><span class="osc-label">Purpose</span></div>
+        </div>
+        <div class="mnemonic-row">
+          <div class="mnemonic-word">Oh!</div>
+          <div class="mnemonic-word">Silly</div>
+          <div class="mnemonic-word">Anna!</div>
+          <div class="mnemonic-word">She</div>
+          <div class="mnemonic-word">Colors</div>
+          <div class="mnemonic-word">Our</div>
+          <div class="mnemonic-word">Morning</div>
+          <div class="mnemonic-word">Purple.</div>
+        </div>
+
+        <!-- Exercise -->
+        <div class="adj-exercise-wrap">
+          <div class="adj-ex-header">
+            <div class="adj-ex-num" id="adjExNum">ข้อ 1 / 10</div>
+            <div class="adj-ex-score">ถูก <span id="adjCorrectCount">0</span> / <span id="adjTotalDone">0</span></div>
+          </div>
+
+          <div class="adj-pool-wrap">
+            <div class="adj-pool-label">ลาก Adjective ไปวางในช่อง</div>
+            <div class="adj-pool" id="adjPool"></div>
+          </div>
+
+          <div class="sentence-builder" id="sentenceBuilder"></div>
+
+          <div class="result-sentence" id="adjResult"></div>
+
+          <div class="adj-nav">
+            <button class="btn btn-ghost" id="adjBtnPrev" onclick="adjGo(-1)">← ก่อนหน้า</button>
+            <button class="btn btn-primary" id="adjBtnNext" onclick="adjGo(1)">ถัดไป →</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1133,36 +1496,48 @@ function showSummary() {
 // TAB 2 – MEMORIZE
 // ══════════════════════════════════════════════
 
-// Pattern: array of chars. null = blank input, string = shown letter
-// Space between words shown as separator
-const memoWords = [
-  { label: "AVOID",           words: [ [null,'v','o',null,'d'] ] },
-  { label: "ENJOY",           words: [ ['e',null,'j',null,'y'] ] },
-  { label: "RISK",            words: [ ['r',null,'s',null] ] },
-  { label: "MIND",            words: [ [null,'i','n',null] ] },
-  { label: "DENY",            words: [ ['d',null,'n',null] ] },
-  { label: "ESCAPE",          words: [ [null,'s','c',null,'p','e'] ] },
-  { label: "FINISH",          words: [ ['f',null,'n',null,'s','h'] ] },
-  { label: "ADMIT",           words: [ [null,'d','m',null,'t'] ] },
-  { label: "PRACTICE",        words: [ ['p','r',null,'c','t',null,'c','e'] ] },
-  { label: "SUGGEST",         words: [ ['s',null,'g','g',null,'s','t'] ] },
-  { label: "APPRECIATE",      words: [ [null,'p','p','r',null,'c',null,'a','t','e'] ] },
-  { label: "IMAGINE",         words: [ [null,'m','a',null,'i','n','e'] ] },
-  { label: "POSTPONE",        words: [ ['p',null,'s','t',null,'o','n','e'] ] },
-  { label: "MISS",            words: [ ['m',null,'s',null] ] },
-  { label: "DISCUSS",         words: [ ['d',null,'s',null,'u','s','s'] ] },
-  { label: "KEEP",            words: [ ['k',null,'e',null] ] },
-  { label: "DISLIKE",         words: [ ['d',null,'s','l',null,'k','e'] ] },
-  { label: "DELAY",           words: [ ['d',null,'l',null,'y'] ] },
-  { label: "ANTICIPATE",      words: [ [null,'n','t',null,'c','i',null,'a','t','e'] ] },
-  { label: "RECOMMEND",       words: [ ['r',null,'c','o',null,'m','e','n',null] ] },
-  { label: "LOOK FORWARD TO", words: [ ['l',null,'o','k'], ['f',null,'r','w',null,'r','d'], ['t',null] ] },
-  { label: "OBJECT TO",       words: [ [null,'b','j','e',null,'t'], ['t',null] ] },
-  { label: "DEVOTE TO",       words: [ ['d',null,'v',null,'t','e'], ['t',null] ] },
-  { label: "BE OPPOSED TO",   words: [ ['b',null], [null,'p','p',null,'s','e','d'], ['t',null] ] },
+const memoLabels = [
+  "AVOID","ENJOY","RISK","MIND","DENY","ESCAPE","FINISH","ADMIT",
+  "PRACTICE","SUGGEST","APPRECIATE","IMAGINE","POSTPONE","MISS",
+  "DISCUSS","KEEP","DISLIKE","DELAY","ANTICIPATE","RECOMMEND",
+  "LOOK FORWARD TO","OBJECT TO","DEVOTE TO","BE OPPOSED TO"
 ];
 
+// Generate pattern array for a single word at a given difficulty level.
+// Returns array where string = shown letter, null = blank to fill.
+function generateWordPattern(word, level) {
+  const letters = word.toLowerCase().split('');
+  const len = letters.length;
+  if (level === 1) {
+    // Show even-indexed letters (0,2,4…), blank odd
+    return letters.map((ch, i) => i % 2 === 0 ? ch : null);
+  } else if (level === 2) {
+    // Show first + last only; single-char words always shown
+    return letters.map((ch, i) => (i === 0 || i === len - 1) ? ch : null);
+  } else {
+    // Level 3: show only the first letter
+    return letters.map((ch, i) => i === 0 ? ch : null);
+  }
+}
+
+function buildMemoWords(level) {
+  return memoLabels.map(label => ({
+    label,
+    words: label.split(' ').map(w => generateWordPattern(w, level))
+  }));
+}
+
+let memoLevel = 1;
+let memoWords = buildMemoWords(1);
 let memoCompleted = 0;
+
+function setMemoLevel(lvl) {
+  memoLevel = lvl;
+  memoWords = buildMemoWords(lvl);
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lvl-' + lvl).classList.add('active');
+  resetMemo();
+}
 
 function renderMemo() {
   const grid = document.getElementById('memoGrid');
@@ -1538,6 +1913,214 @@ function dropChip(suffix, correctType, zone, chipEl) {
 function resetSuffix() { renderSuffix(); }
 
 renderSuffix();
+
+// ══════════════════════════════════════════════
+// ADJ ORDER — OSASCOMP
+// ══════════════════════════════════════════════
+const CAT_COLORS = {
+  opinion:  '#c0392b',
+  size:     '#d35400',
+  age:      '#b7950b',
+  shape:    '#27ae60',
+  color:    '#2980b9',
+  origin:   '#7d3c98',
+  material: '#16a085',
+  purpose:  '#7f8c8d',
+};
+
+const adjExercises = [
+  { article:'a',  noun:'box',     adjs:[{w:'beautiful',c:'opinion'},{w:'small',c:'size'},{w:'wooden',c:'material'}] },
+  { article:'a',  noun:'car',     adjs:[{w:'lovely',c:'opinion'},{w:'red',c:'color'},{w:'Italian',c:'origin'}] },
+  { article:'an', noun:'house',   adjs:[{w:'old',c:'age'},{w:'big',c:'size'},{w:'white',c:'color'}] },
+  { article:'a',  noun:'bag',     adjs:[{w:'beautiful',c:'opinion'},{w:'old',c:'age'},{w:'brown',c:'color'},{w:'leather',c:'material'}] },
+  { article:'a',  noun:'table',   adjs:[{w:'horrible',c:'opinion'},{w:'square',c:'shape'},{w:'wooden',c:'material'}] },
+  { article:'a',  noun:'dress',   adjs:[{w:'lovely',c:'opinion'},{w:'new',c:'age'},{w:'Chinese',c:'origin'},{w:'silk',c:'material'}] },
+  { article:'a',  noun:'dog',     adjs:[{w:'strange',c:'opinion'},{w:'tiny',c:'size'},{w:'black',c:'color'}] },
+  { article:'a',  noun:'jacket',  adjs:[{w:'nice',c:'opinion'},{w:'long',c:'size'},{w:'black',c:'color'},{w:'leather',c:'material'}] },
+  { article:'an', noun:'ring',    adjs:[{w:'ugly',c:'opinion'},{w:'round',c:'shape'},{w:'golden',c:'color'},{w:'metal',c:'material'}] },
+  { article:'a',  noun:'woman',   adjs:[{w:'beautiful',c:'opinion'},{w:'young',c:'age'},{w:'Thai',c:'origin'}] },
+];
+
+// sort by OSASCOMP order
+const CAT_ORDER = ['opinion','size','age','shape','color','origin','material','purpose'];
+
+let adjIdx = 0;
+let adjCorrect = 0;
+let adjDone = 0;
+let adjSlotState = []; // per slot: null | word
+let adjDragWord = null;
+let adjExDone = false;
+
+function adjRender() {
+  const ex = adjExercises[adjIdx];
+  // sort adjs by OSASCOMP
+  const sorted = [...ex.adjs].sort((a,b) => CAT_ORDER.indexOf(a.c) - CAT_ORDER.indexOf(b.c));
+  adjSlotState = sorted.map(() => null);
+  adjExDone = false;
+
+  document.getElementById('adjExNum').textContent = `ข้อ ${adjIdx+1} / ${adjExercises.length}`;
+  document.getElementById('adjBtnPrev').disabled = adjIdx === 0;
+  document.getElementById('adjBtnNext').textContent = adjIdx === adjExercises.length-1 ? 'เริ่มใหม่' : 'ถัดไป →';
+  document.getElementById('adjResult').className = 'result-sentence';
+
+  // Pool — shuffled
+  const pool = document.getElementById('adjPool');
+  pool.innerHTML = '';
+  const shuffled = [...ex.adjs].sort(() => Math.random()-0.5);
+  shuffled.forEach(adj => {
+    const chip = document.createElement('div');
+    chip.className = 'adj-chip';
+    chip.textContent = adj.w;
+    chip.dataset.word = adj.w;
+    chip.dataset.cat  = adj.c;
+    chip.draggable = true;
+    chip.id = 'adjchip-' + adj.w;
+
+    chip.addEventListener('dragstart', e => {
+      adjDragWord = adj.w;
+      setTimeout(() => chip.classList.add('dragging'), 0);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+
+    // Touch
+    let tClone;
+    chip.addEventListener('touchstart', e => {
+      adjDragWord = adj.w;
+      const t = e.touches[0];
+      tClone = chip.cloneNode(true);
+      tClone.style.cssText = `position:fixed;z-index:9999;opacity:0.85;pointer-events:none;left:${t.clientX-40}px;top:${t.clientY-18}px;`;
+      document.body.appendChild(tClone);
+    }, {passive:true});
+    chip.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      if(tClone){tClone.style.left=(t.clientX-40)+'px';tClone.style.top=(t.clientY-18)+'px';}
+      e.preventDefault();
+    }, {passive:false});
+    chip.addEventListener('touchend', e => {
+      if(tClone){document.body.removeChild(tClone);tClone=null;}
+      const t = e.changedTouches[0];
+      const el = document.elementFromPoint(t.clientX, t.clientY);
+      const dropEl = el && el.closest('.sb-drop');
+      if(dropEl) adjDropOnSlot(dropEl);
+      adjDragWord = null;
+    });
+
+    pool.appendChild(chip);
+  });
+
+  // Sentence builder
+  const sb = document.getElementById('sentenceBuilder');
+  sb.innerHTML = '';
+
+  const article = document.createElement('span');
+  article.className = 'sb-article';
+  article.textContent = ex.article;
+  sb.appendChild(article);
+
+  sorted.forEach((adj, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'sb-slot';
+
+    const drop = document.createElement('div');
+    drop.className = 'sb-drop';
+    drop.dataset.slotIdx = i;
+    drop.dataset.correctCat = adj.c;
+    drop.dataset.correctWord = adj.w;
+
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
+    drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+    drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('over'); adjDropOnSlot(drop); });
+    drop.addEventListener('click', () => adjRemoveFromSlot(drop, i));
+
+    const catLabel = document.createElement('span');
+    catLabel.className = 'sb-cat-label';
+    catLabel.textContent = adj.c.charAt(0).toUpperCase() + adj.c.slice(1);
+    catLabel.style.background = CAT_COLORS[adj.c];
+
+    slot.appendChild(drop);
+    slot.appendChild(catLabel);
+    sb.appendChild(slot);
+  });
+
+  const nounEl = document.createElement('span');
+  nounEl.className = 'sb-noun';
+  nounEl.textContent = ex.noun;
+  sb.appendChild(nounEl);
+}
+
+function adjDropOnSlot(dropEl) {
+  if (!adjDragWord) return;
+  const slotIdx = parseInt(dropEl.dataset.slotIdx);
+  const correctWord = dropEl.dataset.correctWord;
+
+  if (dropEl.classList.contains('correct')) return; // already filled correctly
+
+  // If slot already has a word, return it to pool first
+  if (adjSlotState[slotIdx]) adjReturnToPool(adjSlotState[slotIdx]);
+
+  if (adjDragWord === correctWord) {
+    // Correct
+    dropEl.textContent = adjDragWord;
+    dropEl.classList.add('filled','correct');
+    adjSlotState[slotIdx] = adjDragWord;
+    document.getElementById('adjchip-'+adjDragWord).classList.add('used');
+    checkAdjComplete();
+  } else {
+    // Wrong — flash
+    dropEl.classList.remove('wrong-slot');
+    void dropEl.offsetWidth;
+    dropEl.classList.add('wrong-slot');
+    dropEl.addEventListener('animationend', () => dropEl.classList.remove('wrong-slot'), {once:true});
+  }
+  adjDragWord = null;
+}
+
+function adjReturnToPool(word) {
+  const chip = document.getElementById('adjchip-'+word);
+  if (chip) chip.classList.remove('used');
+}
+
+function adjRemoveFromSlot(dropEl, slotIdx) {
+  if (!dropEl.classList.contains('correct')) return;
+  const word = adjSlotState[slotIdx];
+  adjSlotState[slotIdx] = null;
+  dropEl.textContent = '';
+  dropEl.classList.remove('filled','correct');
+  adjReturnToPool(word);
+  document.getElementById('adjResult').className = 'result-sentence';
+}
+
+function checkAdjComplete() {
+  const ex = adjExercises[adjIdx];
+  const sorted = [...ex.adjs].sort((a,b) => CAT_ORDER.indexOf(a.c) - CAT_ORDER.indexOf(b.c));
+  const allFilled = adjSlotState.every(s => s !== null);
+  if (!allFilled) return;
+
+  if (!adjExDone) {
+    adjExDone = true;
+    adjDone++;
+    const allCorrect = sorted.every((adj,i) => adjSlotState[i] === adj.w);
+    if (allCorrect) adjCorrect++;
+    document.getElementById('adjCorrectCount').textContent = adjCorrect;
+    document.getElementById('adjTotalDone').textContent = adjDone;
+  }
+
+  const sorted2 = [...ex.adjs].sort((a,b) => CAT_ORDER.indexOf(a.c) - CAT_ORDER.indexOf(b.c));
+  const sentence = `${ex.article} ${sorted2.map(a=>a.w).join(' ')} ${ex.noun}.`;
+  const result = document.getElementById('adjResult');
+  result.textContent = '✓ ' + sentence.charAt(0).toUpperCase() + sentence.slice(1);
+  result.classList.add('show');
+}
+
+function adjGo(dir) {
+  adjIdx += dir;
+  if (adjIdx < 0) adjIdx = 0;
+  if (adjIdx >= adjExercises.length) { adjIdx = 0; adjCorrect = 0; adjDone = 0; }
+  adjRender();
+}
+
+adjRender();
 </script>
 </body>
 </html>
