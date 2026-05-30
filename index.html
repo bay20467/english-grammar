@@ -1084,6 +1084,586 @@
     .sb-drop { width: 72px; }
     .sentence-builder { gap: 6px; }
   }
+
+  /* ══════════════════════════════════════
+     ADJ / ADV POSITION
+  ══════════════════════════════════════ */
+
+  /* Reference table */
+  .pos-ref {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .pos-ref-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pos-ref-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pos-ref-card.adj-card .pos-ref-title { background: #eef2ff; color: #3730a3; }
+  .pos-ref-card.adv-card .pos-ref-title { background: #f0fdf4; color: #166534; }
+
+  .pos-ref-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .pos-ref-row:last-child { border-bottom: none; }
+
+  .pos-tag {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-top: 1px;
+    white-space: nowrap;
+  }
+
+  .tag-blue   { background: #dbeafe; color: #1e40af; }
+  .tag-purple { background: #ede9fe; color: #5b21b6; }
+  .tag-green  { background: #dcfce7; color: #166534; }
+  .tag-orange { background: #ffedd5; color: #9a3412; }
+  .tag-gray   { background: #f3f4f6; color: #374151; }
+  .tag-teal   { background: #ccfbf1; color: #0f766e; }
+
+  .pos-ref-row .ex {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.78rem;
+  }
+
+  .pos-ref-row .ex strong {
+    color: var(--primary);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* Exercise */
+  .pos-exercise-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .pos-ex-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pos-ex-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .pos-ex-score {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .pos-ex-score span { color: var(--primary); font-weight: 700; }
+
+  .pos-cat-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Word chip to place */
+  .pos-word-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-light);
+    border: 1.5px solid var(--primary);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 22px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .pos-word-chip.used {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+    color: var(--correct);
+  }
+
+  /* Sentence with gap slots */
+  .pos-sentence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    line-height: 2.2;
+  }
+
+  .pos-word {
+    padding: 2px 4px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .pos-gap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--border-strong);
+    background: var(--bg);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.7rem;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .pos-gap:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: scale(1.15);
+  }
+
+  .pos-gap.correct-gap {
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    border: none;
+    background: var(--correct-bg);
+    color: var(--correct);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    font-family: 'Courier New', monospace;
+    cursor: default;
+    transform: none;
+  }
+
+  .pos-gap.wrong-flash {
+    animation: gapWrong 0.35s ease;
+  }
+
+  @keyframes gapWrong {
+    0%   { background: var(--wrong-bg); border-color: var(--wrong); }
+    100% { background: var(--bg); border-color: var(--border-strong); }
+  }
+
+  /* Rule reveal */
+  .pos-rule-box {
+    display: none;
+    background: #fffbeb;
+    border: 1px solid var(--hint-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    color: var(--hint-text);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  .pos-rule-box.show { display: block; }
+  .pos-rule-box strong { color: var(--text); }
+
+  .pos-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .pos-ref { grid-template-columns: 1fr; }
+    .pos-sentence { font-size: 0.95rem; }
+  }
+
+  /* ══════════════════════════════════════
+     PART 5 — LINKING VERBS
+  ══════════════════════════════════════ */
+  .lv-group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .lv-group-card {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .lv-group-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+    color: #fff;
+  }
+
+  .lv-group-body {
+    padding: 10px 14px 12px;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .lv-word {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 5px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .lv-group-example {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    padding: 0 14px 10px;
+    background: #fff;
+    font-style: italic;
+  }
+
+  .lv-group-example strong { color: var(--text); font-style: normal; }
+
+  /* Linking vs Action Quiz */
+  .la-quiz-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .la-quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .la-quiz-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .la-score {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .la-score span { color: var(--primary); font-weight: 700; }
+
+  .la-sentence {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 22px;
+    color: var(--text);
+    background: var(--bg);
+    padding: 14px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .la-sentence .bold-verb {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .la-choices {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .la-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 11px 16px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border-strong);
+    background: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .la-btn:hover { background: var(--bg); border-color: var(--primary); color: var(--primary); }
+  .la-btn.correct-ans { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+  .la-btn.wrong-ans   { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
+  .la-btn:disabled { cursor: not-allowed; }
+
+  .la-reason {
+    display: none;
+    background: #fffbeb;
+    border: 1px solid var(--hint-border);
+    border-radius: 8px;
+    padding: 11px 15px;
+    font-size: 0.87rem;
+    color: var(--hint-text);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  .la-reason.show { display: block; }
+  .la-reason strong { color: var(--text); }
+
+  /* ══════════════════════════════════════
+     PART 6 — CONDITIONAL SENTENCES
+  ══════════════════════════════════════ */
+  .cond-formula-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .cond-card {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cond-card-header {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cond-type-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .cond-type-sub {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  .cond-card-body { padding: 12px 16px; background: #fff; }
+
+  .cond-formula {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .cond-formula span { font-weight: 700; color: var(--text); }
+
+  .cond-example {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .cond-example strong { color: var(--primary); font-style: normal; font-weight: 700; }
+
+  .cond-0 .cond-card-header { background: #6b7280; }
+  .cond-1 .cond-card-header { background: #2563eb; }
+  .cond-2 .cond-card-header { background: #7c3aed; }
+  .cond-3 .cond-card-header { background: #b91c1c; }
+
+  /* Fill-in exercise */
+  .cond-exercise-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .cond-ex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cond-ex-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .cond-score {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .cond-score span { color: var(--primary); font-weight: 700; }
+
+  .cond-type-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .cond-sentence-display {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    padding: 14px 18px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .cond-verb-hint {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0 2px;
+  }
+
+  .cond-blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--primary);
+    margin: 0 4px;
+    vertical-align: bottom;
+  }
+
+  .cond-answer-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .cond-input {
+    flex: 1;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.97rem;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    background: #fff;
+  }
+
+  .cond-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,86,219,0.12); }
+  .cond-input.correct { border-color: var(--correct); background: var(--correct-bg); }
+  .cond-input.wrong   { border-color: var(--wrong); background: var(--wrong-bg); }
+  .cond-input:disabled { opacity: 0.8; cursor: not-allowed; }
+
+  .cond-feedback {
+    font-size: 0.88rem;
+    font-weight: 500;
+    min-height: 20px;
+    margin-bottom: 16px;
+  }
+
+  .cond-feedback.correct { color: var(--correct); }
+  .cond-feedback.wrong   { color: var(--wrong); }
+
+  .cond-rule {
+    display: none;
+    background: #fffbeb;
+    border: 1px solid var(--hint-border);
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.86rem;
+    color: var(--hint-text);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .cond-rule.show { display: block; }
+  .cond-rule strong { color: var(--text); }
+
+  .cond-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 560px) {
+    .cond-formula-grid { grid-template-columns: 1fr; }
+    .lv-group-grid { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -1129,6 +1709,37 @@
           <path d="M3 6h4M3 12h8M3 18h12M17 3l4 4-4 4M21 7H11"/>
         </svg>
         เรียงลำดับ Adj.
+      </button>
+
+      <div class="nav-section-label" style="margin-top:14px">Part 4 — Adj/Adv Position</div>
+      <button class="nav-item" id="nav-position" onclick="switchTab('position')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 12h16M12 4l-4 4 4 4M12 20l4-4-4-4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ตำแหน่ง Adj/Adv
+      </button>
+
+      <div class="nav-section-label" style="margin-top:14px">Part 5 — Linking Verbs</div>
+      <button class="nav-item" id="nav-linking" onclick="switchTab('linking')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        Linking Verbs
+      </button>
+
+      <div class="nav-section-label" style="margin-top:14px">Part 6 — Conditional</div>
+      <button class="nav-item" id="nav-conditional" onclick="switchTab('conditional')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m10 0h3a2 2 0 0 0 2-2v-3"/>
+          <path d="M9 12h6M12 9v6"/>
+        </svg>
+        Conditional (If)
+      </button>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 12h16M12 4l-4 4 4 4M12 20l4-4-4-4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ตำแหน่ง Adj/Adv
       </button>
 
     </nav>
@@ -1281,6 +1892,186 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- ── TAB: Adj/Adv Position ── -->
+    <div id="panel-position" class="tab-panel">
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="page-title">ตำแหน่งของ Adjective และ Adverb</div>
+          <p class="page-sub">คลิกที่ช่อง ◦ ในประโยคเพื่อวางคำในตำแหน่งที่ถูกต้อง</p>
+        </div>
+
+        <!-- Reference -->
+        <div class="pos-ref">
+          <div class="pos-ref-card adj-card">
+            <div class="pos-ref-title">Adjective — ตำแหน่ง</div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-blue">หน้า Noun</span>
+              <div>Attributive<br><span class="ex">a <strong>beautiful</strong> flower</span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-purple">หลัง Linking V.</span>
+              <div>Predicative<br><span class="ex">The flower <strong>is beautiful</strong></span></div>
+            </div>
+          </div>
+          <div class="pos-ref-card adv-card">
+            <div class="pos-ref-title">Adverb — ตำแหน่ง</div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-green">หน้า Adj/Adv</span>
+              <div>Degree<br><span class="ex"><strong>very</strong> cold, <strong>quite</strong> fast</span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-orange">หน้า Main V.</span>
+              <div>Frequency<br><span class="ex">I <strong>always</strong> eat breakfast</span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-orange">หลัง be/aux</span>
+              <div>Frequency<br><span class="ex">She is <strong>always</strong> late</span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-teal">หลัง V./Object</span>
+              <div>Manner<br><span class="ex">She speaks <strong>quietly</strong></span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-gray">ท้ายประโยค</span>
+              <div>Time / Place<br><span class="ex">I'll call you <strong>tomorrow</strong></span></div>
+            </div>
+            <div class="pos-ref-row">
+              <span class="pos-tag tag-gray">ต้นประโยค</span>
+              <div>Sentence adverb<br><span class="ex"><strong>Fortunately</strong>, they won</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercise -->
+        <div class="pos-exercise-wrap">
+          <div class="pos-ex-header">
+            <div class="pos-ex-num" id="posExNum">ข้อ 1 / 16</div>
+            <div class="pos-ex-score">ถูก <span id="posCorrect">0</span> / <span id="posDone">0</span></div>
+          </div>
+          <div id="posCatBadge" class="pos-cat-badge"></div>
+          <div class="pos-word-chip" id="posWordChip"></div>
+          <div class="pos-sentence" id="posSentence"></div>
+          <div class="pos-rule-box" id="posRuleBox"></div>
+          <div class="pos-nav">
+            <button class="btn btn-ghost" id="posBtnPrev" onclick="posGo(-1)">← ก่อนหน้า</button>
+            <button class="btn btn-primary" id="posBtnNext" onclick="posGo(1)">ถัดไป →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── TAB: Linking Verbs ── -->
+    <div id="panel-linking" class="tab-panel">
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="page-title">Linking Verbs — คำกริยาเชื่อม</div>
+          <p class="page-sub">Linking Verb เชื่อมประธานกับ Adjective หรือ Noun ที่ตาม — ไม่ใช่การกระทำ</p>
+        </div>
+
+        <!-- Reference grid -->
+        <div class="lv-group-grid" id="lvGrid"></div>
+
+        <!-- Linking vs Action Quiz -->
+        <div class="la-quiz-wrap">
+          <div class="la-quiz-header">
+            <div class="la-quiz-title" id="laNum">ข้อ 1 / 12</div>
+            <div class="la-score">ถูก <span id="laCorrect">0</span> / <span id="laDone">0</span></div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:14px">
+            คำที่ขีดเส้นใต้เป็น <strong>Linking Verb</strong> หรือ <strong>Action Verb</strong>?
+          </p>
+          <div class="la-sentence" id="laSentence"></div>
+          <div class="la-choices">
+            <button class="la-btn" id="la-btn-linking" onclick="laAnswer('linking')">Linking Verb</button>
+            <button class="la-btn" id="la-btn-action"  onclick="laAnswer('action')">Action Verb</button>
+          </div>
+          <div class="la-reason" id="laReason"></div>
+          <div style="display:flex;justify-content:space-between">
+            <button class="btn btn-ghost" id="laBtnPrev" onclick="laGo(-1)">← ก่อนหน้า</button>
+            <button class="btn btn-primary" id="laBtnNext" onclick="laGo(1)">ถัดไป →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: Conditional ── -->
+    <div id="panel-conditional" class="tab-panel">
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="page-title">Conditional Sentences — ประโยคเงื่อนไข (If)</div>
+          <p class="page-sub">พิมพ์รูปกริยาที่ถูกต้องตาม Type ของ Conditional</p>
+        </div>
+
+        <!-- Formula reference -->
+        <div class="cond-formula-grid">
+          <div class="cond-card cond-0">
+            <div class="cond-card-header">
+              <span class="cond-type-label">Type 0</span>
+              <span class="cond-type-sub">General Truth</span>
+            </div>
+            <div class="cond-card-body">
+              <div class="cond-formula">If + <span>Present Simple</span>, <span>Present Simple</span></div>
+              <div class="cond-example">If you <strong>heat</strong> ice, it <strong>melts</strong>.</div>
+            </div>
+          </div>
+          <div class="cond-card cond-1">
+            <div class="cond-card-header">
+              <span class="cond-type-label">Type 1</span>
+              <span class="cond-type-sub">Possible Future</span>
+            </div>
+            <div class="cond-card-body">
+              <div class="cond-formula">If + <span>Present Simple</span>, <span>will + V1</span></div>
+              <div class="cond-example">If it <strong>rains</strong>, I <strong>will stay</strong> home.</div>
+            </div>
+          </div>
+          <div class="cond-card cond-2">
+            <div class="cond-card-header">
+              <span class="cond-type-label">Type 2</span>
+              <span class="cond-type-sub">Unreal Present</span>
+            </div>
+            <div class="cond-card-body">
+              <div class="cond-formula">If + <span>Past Simple</span>, <span>would + V1</span></div>
+              <div class="cond-example">If I <strong>had</strong> money, I <strong>would travel</strong>.</div>
+            </div>
+          </div>
+          <div class="cond-card cond-3">
+            <div class="cond-card-header">
+              <span class="cond-type-label">Type 3</span>
+              <span class="cond-type-sub">Unreal Past</span>
+            </div>
+            <div class="cond-card-body">
+              <div class="cond-formula">If + <span>had + V3</span>, <span>would have + V3</span></div>
+              <div class="cond-example">If she <strong>had studied</strong>, she <strong>would have passed</strong>.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercise -->
+        <div class="cond-exercise-wrap">
+          <div class="cond-ex-header">
+            <div class="cond-ex-num" id="condExNum">ข้อ 1 / 16</div>
+            <div class="cond-score">ถูก <span id="condCorrect">0</span> / <span id="condDone">0</span></div>
+          </div>
+          <div id="condTypeBadge" class="cond-type-badge"></div>
+          <div class="cond-sentence-display" id="condSentence"></div>
+          <div class="cond-answer-row">
+            <input class="cond-input" id="condInput" type="text"
+              placeholder="พิมพ์รูปกริยาที่ถูกต้อง..."
+              autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+              onkeydown="if(event.key==='Enter') condCheck()"/>
+            <button class="btn btn-primary" onclick="condCheck()">ตรวจ</button>
+          </div>
+          <div class="cond-feedback" id="condFeedback"></div>
+          <div class="cond-rule" id="condRule"></div>
+          <div class="cond-nav">
+            <button class="btn btn-ghost" id="condBtnPrev" onclick="condGo(-1)">← ก่อนหน้า</button>
+            <button class="btn btn-primary" id="condBtnNext" onclick="condGo(1)">ถัดไป →</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2121,6 +2912,446 @@ function adjGo(dir) {
 }
 
 adjRender();
+
+// ══════════════════════════════════════════════
+// PART 4 – ADJ / ADV POSITION
+// ══════════════════════════════════════════════
+const posExercises = [
+  // ── Adjective: Attributive (before noun) ──
+  { cat:'Adj. หน้า Noun', catCls:'tag-blue',
+    word:'fast',       parts:['It','is','a','car.'],       correct:3,
+    rule:'<strong>Attributive:</strong> Adjective วางหน้า Noun โดยตรง — "a <strong>fast</strong> car"' },
+  { cat:'Adj. หน้า Noun', catCls:'tag-blue',
+    word:'long',       parts:['She','has','beautiful','hair.'], correct:3,
+    rule:'<strong>Attributive:</strong> Adjective เรียงซ้อนกันหน้า Noun ได้ — "beautiful <strong>long</strong> hair"' },
+  { cat:'Adj. หน้า Noun', catCls:'tag-blue',
+    word:'small',      parts:['He','found','a','box.'],    correct:3,
+    rule:'<strong>Attributive:</strong> Adjective วางหน้า Noun — "a <strong>small</strong> box"' },
+
+  // ── Adjective: Predicative (after linking verb) ──
+  { cat:'Adj. หลัง Linking V.', catCls:'tag-purple',
+    word:'delicious',  parts:['The','soup','tastes','really','.'], correct:4,
+    rule:'<strong>Predicative:</strong> Adjective วางหลัง Linking Verb (tastes, seems, looks, feels, is) — "tastes <strong>delicious</strong>"' },
+  { cat:'Adj. หลัง Linking V.', catCls:'tag-purple',
+    word:'tired',      parts:['She','seems','very','.'],   correct:3,
+    rule:'<strong>Predicative:</strong> Adjective วางหลัง Linking Verb — "seems very <strong>tired</strong>"' },
+  { cat:'Adj. หลัง Linking V.', catCls:'tag-purple',
+    word:'happy',      parts:['The','dog','looks','.'],    correct:3,
+    rule:'<strong>Predicative:</strong> Adjective วางหลัง Linking Verb — "looks <strong>happy</strong>"' },
+
+  // ── Adverb: Degree (before adj/adv) ──
+  { cat:'Adv. Degree — หน้า Adj.', catCls:'tag-green',
+    word:'very',       parts:['The','weather','is','cold.'],   correct:3,
+    rule:'<strong>Degree adverb</strong> วางหน้า Adjective หรือ Adverb เพื่อขยายความเข้ม — "is <strong>very</strong> cold"' },
+  { cat:'Adv. Degree — หน้า Adj.', catCls:'tag-green',
+    word:'quite',      parts:['She','is','smart.'],            correct:2,
+    rule:'<strong>Degree adverb</strong> วางหน้า Adjective — "is <strong>quite</strong> smart"' },
+
+  // ── Adverb: Frequency (before main verb) ──
+  { cat:'Adv. Frequency — หน้า Main V.', catCls:'tag-orange',
+    word:'always',     parts:['She','eats','breakfast.'],  correct:1,
+    rule:'<strong>Frequency adverb</strong> วางหน้า Main Verb — "She <strong>always</strong> eats"' },
+  { cat:'Adv. Frequency — หน้า Main V.', catCls:'tag-orange',
+    word:'never',      parts:['He','forgets','things.'],   correct:1,
+    rule:'<strong>Frequency adverb</strong> วางหน้า Main Verb — "He <strong>never</strong> forgets"' },
+  { cat:'Adv. Frequency — หน้า Main V.', catCls:'tag-orange',
+    word:'often',      parts:['I','read','books.'],        correct:1,
+    rule:'<strong>Frequency adverb</strong> วางหน้า Main Verb — "I <strong>often</strong> read"' },
+
+  // ── Adverb: Frequency (after be/aux) ──
+  { cat:'Adv. Frequency — หลัง be', catCls:'tag-orange',
+    word:'always',     parts:['She','is','late.'],         correct:2,
+    rule:'<strong>Frequency adverb</strong> วางหลัง be/auxiliary verb — "is <strong>always</strong> late"' },
+  { cat:'Adv. Frequency — หลัง be', catCls:'tag-orange',
+    word:'usually',    parts:['They','are','busy.'],       correct:2,
+    rule:'<strong>Frequency adverb</strong> วางหลัง be verb — "are <strong>usually</strong> busy"' },
+
+  // ── Adverb: Manner (after verb / object) ──
+  { cat:'Adv. Manner — หลัง Verb', catCls:'tag-teal',
+    word:'slowly',     parts:['He','speaks','.'],          correct:2,
+    rule:'<strong>Manner adverb</strong> วางหลัง Verb — "speaks <strong>slowly</strong>"' },
+  { cat:'Adv. Manner — หลัง Verb', catCls:'tag-teal',
+    word:'beautifully',parts:['She','dances','.'],         correct:2,
+    rule:'<strong>Manner adverb</strong> วางหลัง Verb — "dances <strong>beautifully</strong>"' },
+  { cat:'Adv. Manner — หลัง Object', catCls:'tag-teal',
+    word:'carefully',  parts:['She','read','the','letter','.'], correct:4,
+    rule:'<strong>Manner adverb</strong> วางหลัง Object — "read the letter <strong>carefully</strong>"' },
+
+  // ── Adverb: Time (end) ──
+  { cat:'Adv. Time — ท้ายประโยค', catCls:'tag-gray',
+    word:'tomorrow',   parts:["I'll",'call','you','.'],    correct:3,
+    rule:'<strong>Time adverb</strong> มักวางท้ายประโยค — "call you <strong>tomorrow</strong>"' },
+  { cat:'Adv. Time — ท้ายประโยค', catCls:'tag-gray',
+    word:'late',       parts:['He','arrived','.'],         correct:2,
+    rule:'<strong>Time adverb</strong> วางท้ายประโยค — "arrived <strong>late</strong>"' },
+
+  // ── Adverb: Sentence (beginning) ──
+  { cat:'Adv. ต้นประโยค', catCls:'tag-gray',
+    word:'Fortunately',parts:['they','won','the','match.'], correct:0,
+    rule:'<strong>Sentence adverb</strong> วางต้นประโยคตามด้วย comma — "<strong>Fortunately</strong>, they won..."' },
+  { cat:'Adv. ต้นประโยค', catCls:'tag-gray',
+    word:'Suddenly',   parts:['the','lights','went','off.'], correct:0,
+    rule:'<strong>Sentence adverb</strong> วางต้นประโยคตามด้วย comma — "<strong>Suddenly</strong>, the lights..."' },
+];
+
+const CAT_TAG_BG = {
+  'tag-blue':   '#dbeafe', 'tag-purple': '#ede9fe', 'tag-green':  '#dcfce7',
+  'tag-orange': '#ffedd5', 'tag-teal':   '#ccfbf1', 'tag-gray':   '#f3f4f6',
+};
+const CAT_TAG_COLOR = {
+  'tag-blue':   '#1e40af', 'tag-purple': '#5b21b6', 'tag-green':  '#166534',
+  'tag-orange': '#9a3412', 'tag-teal':   '#0f766e', 'tag-gray':   '#374151',
+};
+
+let posIdx = 0, posCorrectCount = 0, posDoneCount = 0, posAnswered = false;
+
+function posRender() {
+  const ex = posExercises[posIdx];
+  posAnswered = false;
+
+  document.getElementById('posExNum').textContent = `ข้อ ${posIdx+1} / ${posExercises.length}`;
+  document.getElementById('posBtnPrev').disabled = posIdx === 0;
+  document.getElementById('posBtnNext').textContent =
+    posIdx === posExercises.length - 1 ? 'เริ่มใหม่' : 'ถัดไป →';
+
+  // Category badge
+  const badge = document.getElementById('posCatBadge');
+  badge.textContent = ex.cat;
+  badge.style.background = CAT_TAG_BG[ex.catCls] || '#f3f4f6';
+  badge.style.color = CAT_TAG_COLOR[ex.catCls] || '#374151';
+
+  // Word chip
+  const chip = document.getElementById('posWordChip');
+  chip.textContent = ex.word;
+  chip.className = 'pos-word-chip';
+
+  // Rule box — hide
+  document.getElementById('posRuleBox').className = 'pos-rule-box';
+
+  // Sentence with gaps
+  const sentEl = document.getElementById('posSentence');
+  sentEl.innerHTML = '';
+
+  // Prepend gap-0 for sentence-start adverbs
+  const totalGaps = ex.parts.length + 1;
+  for (let g = 0; g < totalGaps; g++) {
+    // Gap button
+    const gap = document.createElement('button');
+    gap.className = 'pos-gap';
+    gap.dataset.gapIdx = g;
+    gap.textContent = '◦';
+    gap.title = 'คลิกเพื่อวางคำที่นี่';
+    gap.addEventListener('click', () => posClickGap(g));
+    sentEl.appendChild(gap);
+
+    // Word after gap
+    if (g < ex.parts.length) {
+      const w = document.createElement('span');
+      w.className = 'pos-word';
+      w.textContent = ex.parts[g];
+      sentEl.appendChild(w);
+    }
+  }
+}
+
+function posClickGap(gIdx) {
+  if (posAnswered) return;
+  const ex = posExercises[posIdx];
+
+  if (gIdx === ex.correct) {
+    // Correct
+    posAnswered = true;
+    posCorrectCount++;
+    posDoneCount++;
+    document.getElementById('posCorrect').textContent = posCorrectCount;
+    document.getElementById('posDone').textContent    = posDoneCount;
+
+    const gap = document.querySelector(`.pos-gap[data-gap-idx="${gIdx}"]`);
+    gap.className = 'pos-gap correct-gap';
+    gap.textContent = ex.word;
+    gap.removeEventListener('click', () => {});
+
+    // Hide all remaining gaps
+    document.querySelectorAll('.pos-gap:not(.correct-gap)').forEach(g => {
+      g.style.visibility = 'hidden';
+    });
+
+    document.getElementById('posWordChip').classList.add('used');
+    document.getElementById('posRuleBox').innerHTML = ex.rule;
+    document.getElementById('posRuleBox').className = 'pos-rule-box show';
+  } else {
+    // Wrong
+    const gap = document.querySelector(`.pos-gap[data-gap-idx="${gIdx}"]`);
+    gap.classList.remove('wrong-flash');
+    void gap.offsetWidth;
+    gap.classList.add('wrong-flash');
+    gap.addEventListener('animationend', () => gap.classList.remove('wrong-flash'), {once:true});
+  }
+}
+
+function posGo(dir) {
+  posIdx += dir;
+  if (posIdx < 0) posIdx = 0;
+  if (posIdx >= posExercises.length) { posIdx = 0; posCorrectCount = 0; posDoneCount = 0; }
+  posRender();
+}
+
+posRender();
+
+// ══════════════════════════════════════════════
+// PART 5 – LINKING VERBS
+// ══════════════════════════════════════════════
+const lvGroups = [
+  { label:'Be Verbs',    color:'#1e40af', verbs:['be','is','am','are','was','were','been','being'],
+    example:'She <strong>is</strong> a doctor.' },
+  { label:'Appearance',  color:'#6d28d9', verbs:['look','seem','appear'],
+    example:'He <strong>looks</strong> tired.' },
+  { label:'Senses',      color:'#0f766e', verbs:['feel','taste','smell','sound'],
+    example:'The soup <strong>tastes</strong> delicious.' },
+  { label:'Change',      color:'#b91c1c', verbs:['become','get','grow','turn','go','come'],
+    example:'The sky <strong>turned</strong> dark.' },
+  { label:'Continuation',color:'#166534', verbs:['remain','stay','keep','prove'],
+    example:'She <strong>remained</strong> calm.' },
+];
+
+const laQuiz = [
+  { s:'The food smells wonderful.',      v:'smells',  a:'linking', r:'แทนด้วย "is" ได้ → "The food <strong>is</strong> wonderful" ✓ = Linking Verb' },
+  { s:'She smells the flower.',          v:'smells',  a:'action',  r:'มี Object (the flower) ตามมา → เป็นการกระทำ = Action Verb' },
+  { s:'He turned pale with fear.',       v:'turned',  a:'linking', r:'"turned" + adjective (pale) = เชื่อมประธานกับ adj → Linking Verb' },
+  { s:'She turned the page slowly.',     v:'turned',  a:'action',  r:'มี Object (the page) ตามมา → Action Verb' },
+  { s:'The milk went bad overnight.',    v:'went',    a:'linking', r:'"went" + adjective (bad) = Linking Verb (เหมือน "became bad")' },
+  { s:'She went to school early.',       v:'went',    a:'action',  r:'ตามด้วย to + place — ไม่ใช่ adjective = Action Verb' },
+  { s:'He looked happy at the party.',   v:'looked',  a:'linking', r:'"looked" + adjective (happy) = Linking Verb' },
+  { s:'She looked at the painting.',     v:'looked',  a:'action',  r:'ตามด้วย "at..." ไม่ใช่ adjective โดยตรง = Action Verb' },
+  { s:'The music sounds amazing.',       v:'sounds',  a:'linking', r:'แทนด้วย "is" ได้ → "The music <strong>is</strong> amazing" = Linking Verb' },
+  { s:'He sounds the alarm every morning.',v:'sounds', a:'action', r:'มี Object (the alarm) ตามมา → Action Verb' },
+  { s:'She grew tired during the meeting.',v:'grew',  a:'linking', r:'"grew" + adjective (tired) = Linking Verb (เหมือน "became tired")' },
+  { s:'They grew vegetables in the garden.',v:'grew', a:'action',  r:'มี Object (vegetables) ตามมา → Action Verb' },
+];
+
+let laIdx = 0, laCorrect = 0, laDone = 0, laAnswered = false;
+
+function laRender() {
+  const q = laQuiz[laIdx];
+  laAnswered = false;
+  document.getElementById('laNum').textContent  = `ข้อ ${laIdx+1} / ${laQuiz.length}`;
+  document.getElementById('laCorrect').textContent = laCorrect;
+  document.getElementById('laDone').textContent    = laDone;
+  document.getElementById('laReason').className    = 'la-reason';
+  document.getElementById('laBtnPrev').disabled    = laIdx === 0;
+  document.getElementById('laBtnNext').textContent = laIdx === laQuiz.length-1 ? 'เริ่มใหม่' : 'ถัดไป →';
+
+  // Build sentence with bolded verb
+  const parts = q.s.split(q.v);
+  document.getElementById('laSentence').innerHTML =
+    parts[0] + `<span class="bold-verb">${q.v}</span>` + (parts[1] || '');
+
+  // Reset buttons
+  ['linking','action'].forEach(type => {
+    const btn = document.getElementById('la-btn-'+type);
+    btn.className = 'la-btn';
+    btn.disabled  = false;
+  });
+}
+
+function laAnswer(choice) {
+  if (laAnswered) return;
+  laAnswered = true;
+  laDone++;
+  const q = laQuiz[laIdx];
+  const correct = choice === q.a;
+  if (correct) laCorrect++;
+  document.getElementById('laCorrect').textContent = laCorrect;
+  document.getElementById('laDone').textContent    = laDone;
+  document.getElementById('la-btn-'+choice).className = 'la-btn ' + (correct ? 'correct-ans' : 'wrong-ans');
+  document.getElementById('la-btn-'+q.a).className    = 'la-btn correct-ans';
+  ['linking','action'].forEach(t => document.getElementById('la-btn-'+t).disabled = true);
+  document.getElementById('laReason').innerHTML   = q.r;
+  document.getElementById('laReason').className   = 'la-reason show';
+}
+
+function laGo(dir) {
+  laIdx += dir;
+  if (laIdx < 0) laIdx = 0;
+  if (laIdx >= laQuiz.length) { laIdx = 0; laCorrect = 0; laDone = 0; }
+  laRender();
+}
+
+// ══════════════════════════════════════════════
+// PART 6 – CONDITIONAL SENTENCES
+// ══════════════════════════════════════════════
+const condTypes = { 0:'#6b7280', 1:'#2563eb', 2:'#7c3aed', 3:'#b91c1c' };
+
+const condExercises = [
+  // Type 0
+  { type:0, label:'Type 0 — General Truth',
+    before:'If you', verb:'heat', after:'water to 100°C, it boils.',
+    answer:'heat', answers:['heat'],
+    rule:'<strong>Type 0:</strong> If + <strong>Present Simple</strong>, Present Simple — ความจริงทั่วไป' },
+  { type:0, label:'Type 0 — General Truth',
+    before:'Plants die if they don\'t', verb:'get', after:'enough water.',
+    answer:'get', answers:['get'],
+    rule:'<strong>Type 0:</strong> If + <strong>Present Simple</strong>, Present Simple — กฎธรรมชาติ' },
+  { type:0, label:'Type 0 — General Truth',
+    before:'If I eat too much, I', verb:'feel', after:'sick.',
+    answer:'feel', answers:['feel'],
+    rule:'<strong>Type 0:</strong> ทั้งสอง clause ใช้ Present Simple — ผลลัพธ์ที่เป็นความจริงเสมอ' },
+  { type:0, label:'Type 0 — General Truth',
+    before:'Water freezes if the temperature', verb:'drop', after:'below 0°C.',
+    answer:'drops', answers:['drops'],
+    rule:'<strong>Type 0:</strong> Subject "the temperature" (he/she/it) → เติม <strong>-s</strong>' },
+
+  // Type 1
+  { type:1, label:'Type 1 — Possible Future',
+    before:'If it rains tomorrow, we', verb:'cancel', after:'the trip.',
+    answer:'will cancel', answers:['will cancel'],
+    rule:'<strong>Type 1:</strong> If + Present Simple, <strong>will + V1</strong> — เป็นไปได้ในอนาคต' },
+  { type:1, label:'Type 1 — Possible Future',
+    before:'She', verb:'call', after:'you if she needs help.',
+    answer:'will call', answers:['will call'],
+    rule:'<strong>Type 1:</strong> <strong>will + V1</strong> ในส่วน main clause' },
+  { type:1, label:'Type 1 — Possible Future',
+    before:'If you study hard, you', verb:'pass', after:'the exam.',
+    answer:'will pass', answers:['will pass'],
+    rule:'<strong>Type 1:</strong> If + Present Simple, <strong>will + V1</strong>' },
+  { type:1, label:'Type 1 — Possible Future',
+    before:'He', verb:'be', after:'late if he doesn\'t hurry.',
+    answer:"will be", answers:['will be'],
+    rule:'<strong>Type 1:</strong> <strong>will + be</strong> (ไม่ใช่ will is)' },
+
+  // Type 2
+  { type:2, label:'Type 2 — Unreal Present',
+    before:'If I', verb:'have', after:'more money, I would travel the world.',
+    answer:'had', answers:['had'],
+    rule:'<strong>Type 2:</strong> If + <strong>Past Simple</strong>, would + V1 — สมมติที่ไม่จริงในปัจจุบัน' },
+  { type:2, label:'Type 2 — Unreal Present',
+    before:'She would be happy if she', verb:'get', after:'the job.',
+    answer:'got', answers:['got'],
+    rule:'<strong>Type 2:</strong> If clause ใช้ <strong>Past Simple</strong> (got ≠ gets)' },
+  { type:2, label:'Type 2 — Unreal Present',
+    before:'If he knew her number, he', verb:'call', after:'her.',
+    answer:'would call', answers:['would call'],
+    rule:'<strong>Type 2:</strong> Main clause ใช้ <strong>would + V1</strong>' },
+  { type:2, label:'Type 2 — Unreal Present',
+    before:'I', verb:'buy', after:'a car if I were rich.',
+    answer:'would buy', answers:['would buy'],
+    rule:'<strong>Type 2:</strong> "were" ใช้ได้กับทุก subject ใน Type 2 (formal)' },
+
+  // Type 3
+  { type:3, label:'Type 3 — Unreal Past',
+    before:'If they had left earlier, they', verb:'catch', after:'the train.',
+    answer:'would have caught', answers:['would have caught'],
+    rule:'<strong>Type 3:</strong> If + <strong>had + V3</strong>, <strong>would have + V3</strong> — สมมติในอดีตที่เปลี่ยนไม่ได้' },
+  { type:3, label:'Type 3 — Unreal Past',
+    before:'She', verb:'pass', after:'the exam if she had studied harder.',
+    answer:'would have passed', answers:['would have passed'],
+    rule:'<strong>Type 3:</strong> Main clause ใช้ <strong>would have + V3</strong>' },
+  { type:3, label:'Type 3 — Unreal Past',
+    before:'If I had seen him, I', verb:'tell', after:'him the news.',
+    answer:'would have told', answers:['would have told'],
+    rule:'<strong>Type 3:</strong> would have + V3 (told = past participle ของ tell)' },
+  { type:3, label:'Type 3 — Unreal Past',
+    before:'He would have won if he', verb:'try', after:'harder.',
+    answer:'had tried', answers:['had tried'],
+    rule:'<strong>Type 3:</strong> If clause ใช้ <strong>had + V3</strong> (had tried)' },
+];
+
+let condIdx = 0, condCorrect = 0, condDone = 0, condAnswered = false;
+
+function condRender() {
+  const ex = condExercises[condIdx];
+  condAnswered = false;
+  document.getElementById('condExNum').textContent = `ข้อ ${condIdx+1} / ${condExercises.length}`;
+  document.getElementById('condCorrect').textContent = condCorrect;
+  document.getElementById('condDone').textContent    = condDone;
+  document.getElementById('condBtnPrev').disabled    = condIdx === 0;
+  document.getElementById('condBtnNext').textContent = condIdx === condExercises.length-1 ? 'เริ่มใหม่' : 'ถัดไป →';
+
+  const badge = document.getElementById('condTypeBadge');
+  badge.textContent = ex.label;
+  badge.style.background = condTypes[ex.type];
+
+  document.getElementById('condSentence').innerHTML =
+    `${ex.before} <span style="border-bottom:2px solid var(--primary);padding:0 2px;min-width:80px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ${ex.after} <span class="cond-verb-hint">(${ex.verb})</span>`;
+
+  const inp = document.getElementById('condInput');
+  inp.value = '';
+  inp.className = 'cond-input';
+  inp.disabled  = false;
+  inp.placeholder = 'พิมพ์รูปกริยาที่ถูกต้อง...';
+
+  document.getElementById('condFeedback').textContent = '';
+  document.getElementById('condFeedback').className   = 'cond-feedback';
+  document.getElementById('condRule').className       = 'cond-rule';
+  inp.focus();
+}
+
+function condCheck() {
+  if (condAnswered) return;
+  const ex  = condExercises[condIdx];
+  const inp = document.getElementById('condInput');
+  const val = inp.value.trim().toLowerCase().replace(/\s+/g,' ');
+  if (!val) { inp.focus(); return; }
+
+  const ok  = ex.answers.some(a => a.toLowerCase() === val);
+  condAnswered = true;
+  condDone++;
+  if (ok) condCorrect++;
+  document.getElementById('condCorrect').textContent = condCorrect;
+  document.getElementById('condDone').textContent    = condDone;
+
+  inp.className = 'cond-input ' + (ok ? 'correct' : 'wrong');
+  inp.disabled  = true;
+
+  const fb = document.getElementById('condFeedback');
+  fb.className   = 'cond-feedback ' + (ok ? 'correct' : 'wrong');
+  fb.textContent = ok ? 'ถูกต้อง!' : `คำตอบที่ถูก: ${ex.answer}`;
+
+  document.getElementById('condRule').innerHTML = ex.rule;
+  document.getElementById('condRule').className = 'cond-rule show';
+}
+
+function condGo(dir) {
+  condIdx += dir;
+  if (condIdx < 0) condIdx = 0;
+  if (condIdx >= condExercises.length) { condIdx = 0; condCorrect = 0; condDone = 0; }
+  condRender();
+}
+
+// Build linking verb reference grid
+(function buildLvGrid() {
+  const grid = document.getElementById('lvGrid');
+  lvGroups.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'lv-group-card';
+
+    const title = document.createElement('div');
+    title.className = 'lv-group-title';
+    title.style.background = g.color;
+    title.textContent = g.label;
+
+    const body = document.createElement('div');
+    body.className = 'lv-group-body';
+    g.verbs.forEach(v => {
+      const chip = document.createElement('span');
+      chip.className = 'lv-word';
+      chip.textContent = v;
+      body.appendChild(chip);
+    });
+
+    const ex = document.createElement('div');
+    ex.className = 'lv-group-example';
+    ex.innerHTML = g.example;
+
+    card.appendChild(title);
+    card.appendChild(body);
+    card.appendChild(ex);
+    grid.appendChild(card);
+  });
+})();
+
+laRender();
+condRender();
 </script>
 </body>
 </html>
