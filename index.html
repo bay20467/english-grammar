@@ -1664,6 +1664,236 @@
     .cond-formula-grid { grid-template-columns: 1fr; }
     .lv-group-grid { grid-template-columns: 1fr 1fr; }
   }
+
+  /* ══════════════════════════════════════
+     PART 7 — FLASHCARDS
+  ══════════════════════════════════════ */
+  .fc-tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .fc-tag-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 99px;
+    border: 1.5px solid var(--border-strong);
+    background: #fff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    color: var(--text-secondary);
+  }
+
+  .fc-tag-btn .fc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .fc-tag-btn.selected { color: #fff; border-color: transparent; }
+  .fc-tag-btn:not(.selected):hover { border-color: var(--primary); color: var(--primary); }
+
+  .fc-tag-medical  { background: #2563eb; }
+  .fc-tag-legal    { background: #7c3aed; }
+  .fc-tag-econ     { background: #059669; }
+
+  .fc-tag-btn.selected.tag-medical  { background: #2563eb; }
+  .fc-tag-btn.selected.tag-legal    { background: #7c3aed; }
+  .fc-tag-btn.selected.tag-econ     { background: #059669; }
+
+  .fc-dot-medical { background: #2563eb; }
+  .fc-dot-legal   { background: #7c3aed; }
+  .fc-dot-econ    { background: #059669; }
+
+  .fc-tag-btn.selected .fc-dot { background: rgba(255,255,255,0.7); }
+
+  .fc-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .fc-count-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .fc-count-text span { color: var(--primary); font-weight: 700; }
+
+  .fc-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Progress bar */
+  .fc-progress-wrap {
+    background: var(--border);
+    border-radius: 99px;
+    height: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .fc-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
+
+  /* Flip card */
+  .fc-scene {
+    perspective: 1200px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .fc-card {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.4,0.2,0.2,1);
+  }
+
+  .fc-card.flipped { transform: rotateY(180deg); }
+
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 28px;
+    text-align: center;
+  }
+
+  .fc-front {
+    background: #fff;
+  }
+
+  .fc-back {
+    background: #f8f8f6;
+    transform: rotateY(180deg);
+  }
+
+  .fc-word-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 99px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .fc-word {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .fc-flip-hint {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .fc-thai {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .fc-def {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 380px;
+  }
+
+  .fc-example {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Nav */
+  .fc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .fc-nav-center {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  /* Seen indicator */
+  .fc-seen-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 16px;
+  }
+
+  .fc-dot-ind {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .fc-dot-ind.seen    { background: var(--primary); }
+  .fc-dot-ind.current { background: var(--text); }
+
+  .fc-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    background: #fff;
+    border: 1px dashed var(--border-strong);
+    border-radius: 14px;
+  }
+
+  @media (max-width: 520px) {
+    .fc-word { font-size: 1.6rem; }
+    .fc-card { height: 220px; }
+    .fc-thai { font-size: 1.1rem; }
+  }
 </style>
 </head>
 <body>
@@ -1726,6 +1956,15 @@
           <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
         </svg>
         Linking Verbs
+      </button>
+
+      <div class="nav-section-label" style="margin-top:14px">Part 7 — Vocabulary</div>
+      <button class="nav-item" id="nav-flashcard" onclick="switchTab('flashcard')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20"/>
+        </svg>
+        Flash Cards TU-GET
       </button>
 
       <div class="nav-section-label" style="margin-top:14px">Part 6 — Conditional</div>
@@ -1961,6 +2200,59 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- ── TAB: Flash Cards ── -->
+    <div id="panel-flashcard" class="tab-panel">
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="page-title">Flash Cards — TU-GET Vocabulary</div>
+          <p class="page-sub">เลือกหมวดที่ต้องการฝึก แล้วคลิกการ์ดเพื่อพลิกดูความหมาย</p>
+        </div>
+
+        <!-- Tag selector -->
+        <div class="fc-tag-selector" id="fcTagSelector">
+          <button class="fc-tag-btn selected tag-medical" data-tag="medical" onclick="fcToggleTag('medical')">
+            <span class="fc-dot fc-dot-medical"></span>แพทย์
+          </button>
+          <button class="fc-tag-btn selected tag-legal" data-tag="legal" onclick="fcToggleTag('legal')">
+            <span class="fc-dot fc-dot-legal"></span>กฎหมาย
+          </button>
+          <button class="fc-tag-btn selected tag-econ" data-tag="econ" onclick="fcToggleTag('econ')">
+            <span class="fc-dot fc-dot-econ"></span>เศรษฐศาสตร์
+          </button>
+        </div>
+
+        <div class="fc-meta-row">
+          <div class="fc-count-text"><span id="fcCount">0</span> cards ในเซสชันนี้</div>
+          <div class="fc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="fcShuffle()">สุ่มใหม่</button>
+            <button class="btn btn-primary btn-sm" onclick="fcRestart()">เริ่มใหม่</button>
+          </div>
+        </div>
+
+        <div class="fc-progress-wrap">
+          <div class="fc-progress-fill" id="fcProgress" style="width:0%"></div>
+        </div>
+
+        <!-- Card -->
+        <div class="fc-scene" onclick="fcFlip()" id="fcScene">
+          <div class="fc-card" id="fcCard">
+            <div class="fc-face fc-front" id="fcFront"></div>
+            <div class="fc-face fc-back"  id="fcBack"></div>
+          </div>
+        </div>
+
+        <!-- Nav -->
+        <div class="fc-nav">
+          <button class="btn btn-ghost" id="fcBtnPrev" onclick="fcGo(-1)">← ก่อนหน้า</button>
+          <span class="fc-nav-center" id="fcNavCenter">1 / 1</span>
+          <button class="btn btn-primary" id="fcBtnNext" onclick="fcGo(1)">ถัดไป →</button>
+        </div>
+
+        <!-- Dot indicators -->
+        <div class="fc-seen-row" id="fcSeenRow"></div>
       </div>
     </div>
 
@@ -3349,6 +3641,192 @@ function condGo(dir) {
     grid.appendChild(card);
   });
 })();
+
+// ══════════════════════════════════════════════
+// PART 7 – FLASH CARDS
+// ══════════════════════════════════════════════
+const vocabAll = [
+  // ── Medical ──
+  { w:'diagnosis',    th:'การวินิจฉัยโรค',        def:'Identifying a disease or condition from symptoms.',                        ex:'The doctor made a diagnosis after examining the patient.',   tag:'medical' },
+  { w:'prognosis',    th:'การพยากรณ์โรค',         def:'Predicted outcome or likely course of a disease.',                         ex:'The prognosis for full recovery is excellent.',              tag:'medical' },
+  { w:'symptom',      th:'อาการของโรค',           def:'A physical or mental sign indicating disease.',                            ex:'Fever is a common symptom of infection.',                    tag:'medical' },
+  { w:'chronic',      th:'เรื้อรัง',              def:'Persisting for a long time or recurring frequently.',                      ex:'Diabetes is a chronic condition requiring lifelong management.', tag:'medical' },
+  { w:'acute',        th:'เฉียบพลัน / รุนแรง',   def:'Severe and of sudden onset, lasting a short time.',                       ex:'He was admitted for acute chest pain.',                      tag:'medical' },
+  { w:'intervention', th:'การแทรกแซง / การรักษา', def:'A treatment or procedure intended to improve a condition.',               ex:'Early medical intervention can prevent complications.',       tag:'medical' },
+  { w:'complication', th:'ภาวะแทรกซ้อน',          def:'A secondary disease or condition arising from a primary one.',             ex:'Pneumonia can be a complication of the flu.',                tag:'medical' },
+  { w:'mortality',    th:'อัตราการตาย',            def:'The rate of death in a population.',                                       ex:'The study analyzed cancer mortality rates.',                  tag:'medical' },
+  { w:'morbidity',    th:'อัตราการป่วย',           def:'The rate of disease or illness in a population.',                         ex:'Obesity increases morbidity for many conditions.',           tag:'medical' },
+  { w:'etiology',     th:'สาเหตุของโรค',           def:'The cause or origin of a disease or condition.',                          ex:'The etiology of the virus remains unknown.',                 tag:'medical' },
+  { w:'epidemiology', th:'วิทยาการระบาด',          def:'The study of how diseases spread and can be controlled.',                 ex:'Epidemiology helps predict future outbreaks.',               tag:'medical' },
+  { w:'pathology',    th:'พยาธิวิทยา',             def:'The study of disease, especially its structural changes.',                ex:'A pathology report confirmed the diagnosis.',                tag:'medical' },
+  { w:'clinical',     th:'เกี่ยวกับการรักษาผู้ป่วย', def:'Relating to direct observation and treatment of patients.',           ex:'The drug passed all clinical trials.',                       tag:'medical' },
+  { w:'prescription', th:'ใบสั่งยา',              def:'A doctor\'s written instruction for medication.',                         ex:'You need a prescription to buy this antibiotic.',            tag:'medical' },
+  { w:'specimen',     th:'ตัวอย่างสำหรับตรวจ',    def:'A sample taken for medical testing or analysis.',                        ex:'A blood specimen was sent to the laboratory.',               tag:'medical' },
+  { w:'physiology',   th:'สรีรวิทยา',             def:'The study of normal functions of living organisms.',                      ex:'She studied the physiology of the human heart.',             tag:'medical' },
+  { w:'trauma',       th:'การบาดเจ็บรุนแรง',      def:'A serious physical injury or emotional shock.',                           ex:'The patient was treated for multiple trauma injuries.',       tag:'medical' },
+  { w:'therapy',      th:'การบำบัด / การรักษา',   def:'Treatment intended to relieve or heal a disorder.',                      ex:'Physical therapy helped him recover from surgery.',          tag:'medical' },
+  { w:'contagious',   th:'ติดต่อได้',              def:'Capable of being transmitted from one person to another.',                ex:'Measles is highly contagious.',                              tag:'medical' },
+  { w:'immunity',     th:'ภูมิคุ้มกัน',            def:'Resistance to a specific infection or toxin.',                           ex:'Vaccination builds immunity against disease.',               tag:'medical' },
+
+  // ── Legal ──
+  { w:'plaintiff',    th:'โจทก์',                  def:'The person who brings a case against another in court.',                  ex:'The plaintiff filed a lawsuit against the company.',         tag:'legal' },
+  { w:'defendant',    th:'จำเลย',                  def:'The party accused or being sued in a court case.',                       ex:'The defendant pleaded not guilty.',                          tag:'legal' },
+  { w:'statute',      th:'กฎหมายลายลักษณ์อักษร',  def:'A written law enacted by a legislative body.',                           ex:'The statute prohibits discrimination in the workplace.',     tag:'legal' },
+  { w:'precedent',    th:'บรรทัดฐานทางกฎหมาย',    def:'A previous court decision used as a rule for future cases.',             ex:'The judge followed precedent in making the ruling.',         tag:'legal' },
+  { w:'liability',    th:'ความรับผิดทางกฎหมาย',   def:'Legal responsibility for one\'s actions or debts.',                      ex:'The company denied liability for the accident.',             tag:'legal' },
+  { w:'negligence',   th:'ความประมาทเลินเล่อ',    def:'Failure to take reasonable care, resulting in damage.',                  ex:'The driver was charged with criminal negligence.',           tag:'legal' },
+  { w:'breach',       th:'การละเมิดสัญญา',         def:'A violation of a law, duty, or agreement.',                              ex:'Breach of contract led to a heavy fine.',                    tag:'legal' },
+  { w:'jurisdiction', th:'เขตอำนาจศาล',            def:'The official power to make legal decisions in an area.',                 ex:'This case falls outside the court\'s jurisdiction.',         tag:'legal' },
+  { w:'litigation',   th:'การฟ้องร้องคดี',         def:'The process of taking legal action in court.',                           ex:'Litigation can be expensive and time-consuming.',            tag:'legal' },
+  { w:'indictment',   th:'การฟ้องกล่าวโทษ',        def:'A formal charge that someone has committed a crime.',                    ex:'The grand jury issued an indictment.',                       tag:'legal' },
+  { w:'acquittal',    th:'การพ้นผิด',              def:'A formal declaration that someone is not guilty.',                       ex:'The jury returned a verdict of acquittal.',                  tag:'legal' },
+  { w:'conviction',   th:'การตัดสินว่ามีความผิด',  def:'A formal declaration that someone is guilty of a crime.',               ex:'His conviction was upheld by the court of appeal.',          tag:'legal' },
+  { w:'testimony',    th:'การให้การเป็นพยาน',      def:'A formal statement given under oath in court.',                          ex:'Her testimony was crucial to the prosecution\'s case.',      tag:'legal' },
+  { w:'verdict',      th:'คำพิพากษา',              def:'The formal decision made by a judge or jury.',                           ex:'The jury reached a unanimous verdict.',                      tag:'legal' },
+  { w:'counsel',      th:'ทนายความ / คำปรึกษา',   def:'A lawyer or legal adviser.',                                             ex:'The defendant\'s counsel objected to the question.',         tag:'legal' },
+  { w:'legislation',  th:'กระบวนการออกกฎหมาย',   def:'The process of making or enacting laws.',                                ex:'New legislation was passed to protect consumer rights.',     tag:'legal' },
+  { w:'appeal',       th:'การอุทธรณ์',             def:'A request to a higher court to review a lower court\'s decision.',       ex:'They filed an appeal against the sentence.',                 tag:'legal' },
+  { w:'tort',         th:'ละเมิด (ทางแพ่ง)',       def:'A wrongful act that causes harm and leads to civil liability.',           ex:'Defamation is a type of tort.',                              tag:'legal' },
+  { w:'affidavit',    th:'คำให้การเป็นลายลักษณ์อักษร', def:'A written statement confirmed by oath, used as evidence.',         ex:'She submitted an affidavit to support her claim.',           tag:'legal' },
+  { w:'subpoena',     th:'หมายเรียกพยาน',          def:'A court order requiring someone to appear as a witness.',                ex:'He received a subpoena to testify in court.',                tag:'legal' },
+
+  // ── Economics ──
+  { w:'inflation',    th:'อัตราเงินเฟ้อ',          def:'A general increase in prices and fall in the purchasing value of money.',ex:'High inflation erodes household savings.',                  tag:'econ' },
+  { w:'recession',    th:'ภาวะเศรษฐกิจถดถอย',     def:'A period of temporary economic decline.',                                ex:'The country fell into recession after the crisis.',          tag:'econ' },
+  { w:'fiscal',       th:'เกี่ยวกับงบประมาณรัฐ',  def:'Relating to government revenue, expenditure, and debt.',                ex:'The government announced a new fiscal policy.',              tag:'econ' },
+  { w:'monetary',     th:'เกี่ยวกับระบบเงินตรา',  def:'Relating to money or currency in circulation.',                          ex:'The central bank tightened its monetary policy.',            tag:'econ' },
+  { w:'tariff',       th:'ภาษีนำเข้า',             def:'A tax imposed on imported goods.',                                       ex:'The government raised tariffs on foreign steel.',            tag:'econ' },
+  { w:'subsidy',      th:'เงินอุดหนุนจากรัฐ',      def:'Financial assistance given by the government to reduce costs.',          ex:'Farmers receive a subsidy to keep food prices low.',         tag:'econ' },
+  { w:'monopoly',     th:'การผูกขาด',              def:'Exclusive control of a market by a single supplier.',                   ex:'The company was fined for creating a monopoly.',             tag:'econ' },
+  { w:'equity',       th:'ส่วนทุน / ความเป็นธรรม', def:'The value of shares or ownership interest in a company.',               ex:'She invested in equity markets for long-term growth.',       tag:'econ' },
+  { w:'revenue',      th:'รายได้รวม',              def:'The total income generated by a business or government.',                ex:'The company\'s revenue grew by 20% last year.',             tag:'econ' },
+  { w:'deficit',      th:'การขาดดุล',              def:'The amount by which spending exceeds income.',                           ex:'The budget deficit widened due to increased spending.',      tag:'econ' },
+  { w:'dividend',     th:'เงินปันผล',              def:'A portion of a company\'s profits paid to shareholders.',                ex:'The firm declared a dividend of $2 per share.',              tag:'econ' },
+  { w:'depreciation', th:'การเสื่อมค่า',           def:'Reduction in the value of an asset or currency over time.',             ex:'Depreciation of the currency hurts importers.',              tag:'econ' },
+  { w:'collateral',   th:'หลักทรัพย์ค้ำประกัน',   def:'An asset pledged as security for a loan.',                              ex:'He used his house as collateral for the business loan.',     tag:'econ' },
+  { w:'liquidity',    th:'สภาพคล่อง',              def:'The ease with which assets can be converted to cash.',                  ex:'Banks must maintain a certain level of liquidity.',          tag:'econ' },
+  { w:'austerity',    th:'มาตรการรัดเข็มขัด',      def:'Difficult economic conditions caused by government spending cuts.',     ex:'Austerity measures reduced public services.',                tag:'econ' },
+  { w:'commodity',    th:'สินค้าโภคภัณฑ์',         def:'A raw material or primary agricultural product that can be bought and sold.', ex:'Oil is one of the world\'s most traded commodities.', tag:'econ' },
+  { w:'transaction',  th:'การทำธุรกรรม',           def:'An instance of buying or selling.',                                      ex:'All transactions are recorded in the system.',               tag:'econ' },
+  { w:'surplus',      th:'การเกินดุล',             def:'An amount left over when requirements have been met.',                   ex:'The trade surplus increased exports.',                        tag:'econ' },
+  { w:'volatility',   th:'ความผันผวน',             def:'The tendency to change rapidly and unpredictably.',                     ex:'Market volatility scared away investors.',                    tag:'econ' },
+  { w:'GDP',          th:'ผลิตภัณฑ์มวลรวมประชาชาติ', def:'Gross Domestic Product — total value of goods and services produced.', ex:'The GDP grew by 3% in the third quarter.',               tag:'econ' },
+];
+
+const FC_COLORS = { medical:'#2563eb', legal:'#7c3aed', econ:'#059669' };
+const FC_LABELS = { medical:'Medical', legal:'Legal', econ:'Economics' };
+
+let fcActiveTags = new Set(['medical','legal','econ']);
+let fcDeck = [];
+let fcIdx  = 0;
+let fcSeen = new Set();
+
+function fcBuildDeck() {
+  fcDeck = vocabAll.filter(v => fcActiveTags.has(v.tag));
+  fcIdx  = 0;
+  fcSeen = new Set();
+  document.getElementById('fcCount').textContent = fcDeck.length;
+}
+
+function fcToggleTag(tag) {
+  const btn = document.querySelector(`.fc-tag-btn[data-tag="${tag}"]`);
+  if (fcActiveTags.has(tag)) {
+    if (fcActiveTags.size === 1) return; // keep at least 1
+    fcActiveTags.delete(tag);
+    btn.classList.remove('selected');
+  } else {
+    fcActiveTags.add(tag);
+    btn.classList.add('selected');
+  }
+  fcBuildDeck();
+  fcRender();
+}
+
+function fcShuffle() {
+  for (let i = fcDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+  }
+  fcIdx = 0; fcSeen = new Set();
+  fcRender();
+}
+
+function fcRestart() { fcBuildDeck(); fcRender(); }
+
+function fcRender() {
+  const total = fcDeck.length;
+  if (total === 0) {
+    document.getElementById('fcScene').innerHTML = '<div class="fc-empty">ไม่มีการ์ดในหมวดที่เลือก — กรุณาเลือกอย่างน้อย 1 หมวด</div>';
+    document.getElementById('fcNavCenter').textContent = '0 / 0';
+    document.getElementById('fcProgress').style.width = '0%';
+    document.getElementById('fcSeenRow').innerHTML = '';
+    return;
+  }
+
+  fcSeen.add(fcIdx);
+  const card = fcDeck[fcIdx];
+  const color = FC_COLORS[card.tag];
+
+  // Reset flip
+  document.getElementById('fcCard').classList.remove('flipped');
+
+  // Front
+  document.getElementById('fcFront').innerHTML = `
+    <span class="fc-word-badge" style="background:${color}">${FC_LABELS[card.tag]}</span>
+    <div class="fc-word">${card.w}</div>
+    <div class="fc-flip-hint">คลิกเพื่อดูความหมาย</div>`;
+
+  // Back
+  document.getElementById('fcBack').innerHTML = `
+    <span class="fc-word-badge" style="background:${color}">${card.w}</span>
+    <div class="fc-thai">${card.th}</div>
+    <div class="fc-def">${card.def}</div>
+    ${card.ex ? `<div class="fc-example">"${card.ex}"</div>` : ''}`;
+
+  // Progress & nav
+  document.getElementById('fcProgress').style.width = `${((fcIdx+1)/total)*100}%`;
+  document.getElementById('fcNavCenter').textContent = `${fcIdx+1} / ${total}`;
+  document.getElementById('fcBtnPrev').disabled = fcIdx === 0;
+  document.getElementById('fcBtnNext').textContent = fcIdx === total-1 ? 'เริ่มใหม่' : 'ถัดไป →';
+
+  // Dot indicators (max 40 dots)
+  const seenRow = document.getElementById('fcSeenRow');
+  if (total <= 40) {
+    seenRow.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'fc-dot-ind' + (i === fcIdx ? ' current' : fcSeen.has(i) ? ' seen' : '');
+      seenRow.appendChild(d);
+    }
+  } else {
+    seenRow.innerHTML = '';
+  }
+}
+
+function fcFlip() {
+  if (fcDeck.length === 0) return;
+  document.getElementById('fcCard').classList.toggle('flipped');
+}
+
+function fcGo(dir) {
+  if (fcDeck.length === 0) return;
+  fcIdx += dir;
+  if (fcIdx < 0) fcIdx = 0;
+  if (fcIdx >= fcDeck.length) { fcIdx = 0; fcSeen = new Set(); }
+  fcRender();
+}
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  const panel = document.getElementById('panel-flashcard');
+  if (!panel.classList.contains('active')) return;
+  if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); fcFlip(); }
+  if (e.key === 'ArrowRight') fcGo(1);
+  if (e.key === 'ArrowLeft')  fcGo(-1);
+});
+
+fcBuildDeck();
+fcRender();
 
 laRender();
 condRender();
